@@ -2,10 +2,6 @@
 
 public class XtbConverter : Converter
 {
-    //v zalozce obchody
-    //v levem pruhu v menu nastavit platny od 1.1.2020
-    //v tabulce v pravem horni rohu ikonka na export
-
     private string Currency = null;
 
     public XtbConverter()
@@ -35,7 +31,6 @@ public class XtbConverter : Converter
         {
             var chunks = ReadChunks(line, Separator);
             if (chunks.Count < 5) continue;
-            //if (chunks[4].StartsWith("corr", StringComparison.OrdinalIgnoreCase)) continue;
 
             var date = DateTime.ParseExact(chunks[2], "dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture);
             var price = decimal.Parse(chunks[5]);
@@ -76,6 +71,7 @@ public class XtbConverter : Converter
             }
             if (chunks[1] == "Dividend")
             {
+                // XTB splits dividend into multiple rows, and this way I squash all of them into a single row
                 items.Remove(item);
                 var ticker = ConvertTicker(chunks[3]);
                 var similarDividendRow = items.LastOrDefault(e => e.Action == "dividend" && e.Date.Date == date.Date && e.Ticker == ticker);

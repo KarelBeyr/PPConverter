@@ -3,7 +3,7 @@
 public class FioConverter : Converter
 {
     //v zalozce obchody
-    //v levem pruhu v menu nastavit platny od 1.1.2020
+    //v levem pruhu v menu nastavit platny od 1.1.2020 (a pak i platny do - bohuzel je treba exportovat kazdy rok zvlast)
     //v tabulce v pravem horni rohu ikonka na export
 
     public FioConverter()

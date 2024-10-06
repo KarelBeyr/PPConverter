@@ -28,13 +28,9 @@ public class PatriaConverter : Converter
         foreach (var line in lines)
         { 
             var chunks = ReadChunks(line, Separator);
-            //if (chunks[5] == "ETFS BRENT 1MTH OIL SECURIT") continue;
-            //if (chunks[5] == "STOCK") continue;
-            //if (chunks[5] == "GEVORKYAN") continue;
-
             var ticker = PatriaCodes[chunks[5]];
             var currency = chunks[10];
-            var price = decimal.Parse(chunks[21]);
+            var price = decimal.Parse(chunks[21]); // this price already contains all fees
             var quantity = int.Parse(chunks[15].Replace(",", ""));
             var action = chunks[2] switch
             {
@@ -72,10 +68,6 @@ public class PatriaConverter : Converter
         foreach (var line in lines)
         {
             var chunks = ReadChunks(line, Separator);
-            //if (chunks[3] == "ETFS BRENT 1MTH OIL SECURIT") continue;
-            //if (chunks[3].StartsWith("STOCK")) continue;
-            //if (chunks[3] == "GEVORKYAN") continue;
-            //if (chunks[6] == "GBP") continue;
 
             var currency = chunks[6];
             var price = decimal.Parse(chunks[5]);
@@ -93,8 +85,6 @@ public class PatriaConverter : Converter
             if (chunks[2] == "Provize") continue;
             if (chunks[2] == "Prodej") continue;
             if (chunks[2] == "Nákup") continue;
-            //if (chunks[2] == "Měnová konverze - výběr") continue;
-            //if (chunks[2] == "Měnová konverze - vklad") continue;
 
             if (chunks[2] == "Kreditní úrok")
             {
@@ -145,7 +135,6 @@ public class PatriaConverter : Converter
         {
             if (item.Action == "dividend" && item.Ticker == "ERBAG.PR")
             {
-                //item.Price = item.Price * 0.725m; // rovnou snizim o dan
                 item.ExchangeRate = (decimal?)0.04;
                 item.CurrencyGrossAmount = "CZK";
                 item.GrossAmount = item.Price * 25;
