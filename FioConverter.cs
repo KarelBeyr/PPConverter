@@ -1,5 +1,7 @@
 ﻿using System.Globalization;
 
+namespace Converter;
+
 public class FioConverter : Converter
 {
     //v zalozce obchody
@@ -42,9 +44,18 @@ public class FioConverter : Converter
                 items.Add(ProcessFioNakup(chunks));
                 continue;
             }
+            if (chunks[1].EndsWith("Prodej"))
+            {
+                items.Add(ProcessFioProdej(chunks));
+                continue;
+            }
             if (chunks[12].Contains("Dividenda"))
             {
                 items.Add(ProcessFioDivi(chunks));
+            }
+            if (chunks[12].Contains("(ZPP:MONETA MONEY BANK -) Bezhotovostn"))
+            {
+                items.Add(ProcessFioDiviMonet(chunks));
             }
             if (chunks[12].Contains("Poplatek za p"))
             {
@@ -61,6 +72,19 @@ public class FioConverter : Converter
         var currency = chunks[5];
 
         var price = ParseFioDecimal(chunks[4]);
+        var quantity = 1;
+        var action = "dividend";
+        var fee = 0;
+        return new Item { Date = date, Ticker = code, Currency = currency, Price = price, Quantity = quantity, Action = action, Fee = fee, ServiceAccount = $"FIO_{currency}_SA", DepositAccount = $"FIO_{currency}_DA" };
+    }
+
+    private static Item ProcessFioDiviMonet(List<string> chunks)
+    {
+        var date = DateTime.ParseExact(chunks[0], "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture);
+        var code = "MONET.PR";
+        var currency = chunks[5];
+
+        var price = ParseFioDecimal(chunks[6]);
         var quantity = 1;
         var action = "dividend";
         var fee = 0;
@@ -91,7 +115,7 @@ public class FioConverter : Converter
         var currency = chunks[5];
         var price = ParseFioDecimal(chunks[3]);
         var quantity = (int)ParseFioDecimal(chunks[4]);
-        var action = ConvertActionFio(chunks[1]);
+        var action = "buy";
         var fee = ParseFioDecimal(chunks[7]);
         return new Item
         {
@@ -107,10 +131,27 @@ public class FioConverter : Converter
         };
     }
 
-    public static string ConvertActionFio(string chunk)
+    private static Item ProcessFioProdej(List<string> chunks)
     {
-        if (chunk.EndsWith("kup")) return "buy";
-        throw new NotImplementedException();
+        var date = DateTime.ParseExact(chunks[0], "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture);
+        var code = ConvertCodeFio(chunks[2]);
+        var currency = chunks[5];
+        var price = ParseFioDecimal(chunks[3]);
+        var quantity = (int)ParseFioDecimal(chunks[4]);
+        var action = "sell";
+        var fee = ParseFioDecimal(chunks[7]);
+        return new Item
+        {
+            Date = date,
+            Ticker = code,
+            Currency = currency,
+            Price = price * quantity + fee,
+            Quantity = quantity,
+            Action = action,
+            Fee = fee,
+            ServiceAccount = $"FIO_{currency}_SA",
+            DepositAccount = $"FIO_{currency}_DA"
+        };
     }
 
     private static Item ParseFinancialTransfer(List<string> chunks)

@@ -1,5 +1,7 @@
 ﻿using System.Text;
 
+namespace Converter;
+
 public abstract class Converter
 {
     public char Separator;

@@ -1,4 +1,6 @@
-﻿public class Item
+﻿namespace Converter; 
+
+public class Item
 {
     public DateTime Date;
     public string Ticker;

@@ -1,5 +1,7 @@
 ﻿using System.Globalization;
 
+namespace Converter;
+
 public class XtbConverter : Converter
 {
     private string Currency = null;
@@ -60,7 +62,8 @@ public class XtbConverter : Converter
                 item.Ticker = ticker;
                 var parts = chunks[4].Split(" @ ");
                 var parts2 = parts[0].Split(" ");
-                item.Quantity = int.Parse(parts2[2]);
+                var beforeSlash = parts2[2].Split("/")[0];
+                item.Quantity = int.Parse(beforeSlash);
                 item.Price = decimal.Parse(parts[1]) * item.Quantity;
                 continue;
             }

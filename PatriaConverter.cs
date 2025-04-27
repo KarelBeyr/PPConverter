@@ -1,10 +1,11 @@
 ﻿using System.Globalization;
 
+namespace Converter;
 public class PatriaConverter : Converter
 {
     public PatriaConverter()
     {
-        Separator = ',';
+        Separator = ';';
         Type = "PATRIA";
     }
 
@@ -26,7 +27,9 @@ public class PatriaConverter : Converter
     {
         var list = new List<Item>();
         foreach (var line in lines)
-        { 
+        {
+            if (line.Length == 0) continue; // skip empty lines
+
             var chunks = ReadChunks(line, Separator);
             var ticker = PatriaCodes[chunks[5]];
             var currency = chunks[10];
@@ -65,7 +68,7 @@ public class PatriaConverter : Converter
     private List<Item> ProcessCashFlow(string[] lines)
     {
         var list = new List<Item>();
-        foreach (var line in lines)
+        foreach (var line in lines.Reverse())
         {
             var chunks = ReadChunks(line, Separator);
 
@@ -107,6 +110,11 @@ public class PatriaConverter : Converter
             }
             if (chunks[2] == "Výplata dividendy")
             {
+                if (item.Date.Year == 2021 && item.Date.Month == 12)
+                {
+                    var a = 4;
+                    a++;
+                }
                 item.Ticker = GetCode(chunks[3]);
                 item.Action = "dividend";
                 list.Add(item);
@@ -173,7 +181,7 @@ public class PatriaConverter : Converter
     }
 
     static Dictionary<string, string> PatriaCodes = new Dictionary<string, string> { {"Microsoft", "MSFT"}, {"Walt Disney Co", "DIS"}, {"VANGUARD INFO TECH ETF", "VGT"}, {"Meta Platforms, INC.", "META"},
-        {"Twn Semicont Man Depository Receipt", "TSM"}, {"Micron Tech", "MU"}, {"Intel", "INTC"}, {"VANGUARD S&P 500 ETF", "VOO"}, {"ALPHABET INC -C-", "GOOG"},{"ETFS PHYSICAL GOLD", "PHAU.L"},
+        {"Twn Semicont Man Depository Receipt", "TSM"}, {"Taiwan Semiconductor Manufacturing Co", "TSM"},  { "Taiwan Semiconductor Manufacturing Co Ltd - Depositary Receipt", "TSM" }, {"Micron Tech", "MU"}, {"Intel", "INTC"}, {"VANGUARD S&P 500 ETF", "VOO"}, {"ALPHABET INC -C-", "GOOG"},{"ETFS PHYSICAL GOLD", "PHAU.L"},
         {"KOMERCNI BANKA", "KOMB.PR"}, {"CEZ", "CEZ.PR"}, {"MONETA MONEY BANK", "MONET.PR"}, {"ERSTE GROUP BANK", "ERBAG.PR"}, {"PHILIP MORRIS CR", "TABAK.PR"}, 
         {"PRIMOCO UAV SE", "PRIUA.PR"}, { "Qualcomm Inc", "QCOM"}, { "Taiwan Semiconductor Manufacturing Co Ltd – Depositary Receipt", "TSM"}, { "Alphabet-C", "GOOG"}, 
         { "ETFS BRENT 1MTH OIL SECURIT", "OIL BRENT"}, { "STOCK", "STOCK"}, { "GEVORKYAN", "GEVORKYAN"} };
