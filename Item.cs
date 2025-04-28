@@ -1,5 +1,8 @@
-﻿namespace Converter; 
+﻿using System.Diagnostics;
 
+namespace Converter;
+
+[DebuggerDisplay("Item ({Action} {Ticker} {Price} {Currency})")]
 public class Item
 {
     public DateTime Date;
