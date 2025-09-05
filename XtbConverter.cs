@@ -102,6 +102,7 @@ public class XtbConverter : Converter
     private string ConvertTicker(string ticker)
     {
         if (Currency == "USD") ticker = ticker.Replace(".US", "");
+        if (ticker == "GOOGL") ticker = "GOOG";
         return ticker;
     }
 }
