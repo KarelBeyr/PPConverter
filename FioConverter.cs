@@ -165,7 +165,7 @@ public class FioConverter : Converter
 
     private static decimal ParseFioDecimal(string chunk)
     {
-        return decimal.Parse(chunk.Replace(" ", "").Replace(',', '.'));
+        return decimal.Parse(chunk.Replace(" ", "").Replace(',', '.'), CultureInfo.InvariantCulture);
     }
 
     private void FixErsteDividends(List<Item> items)

@@ -43,7 +43,11 @@ public class XtbXlsConverter : Converter
             {
                 Id = ws.GetCellValue<string>("B", rowIndex),
                 Type = ws.GetCellValue<string>("C", rowIndex),
-                Time = DateTime.ParseExact(ws.GetCellValue<string>("D", rowIndex), "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture),
+                Time = DateTime.ParseExact(ws.GetCellValue<string>("D", rowIndex), new[]
+    {
+        "dd.MM.yyyy HH:mm:ss", // 18:07:32
+        "dd.MM.yyyy H:mm:ss"   // 2:16:43
+    }, CultureInfo.InvariantCulture),
                 Comment = ws.GetCellValue<string>("E", rowIndex),
                 Symbol = ws.GetCellValue<string>("F", rowIndex),
                 Amount = ws.GetCellValue<decimal>("G", rowIndex),
@@ -91,7 +95,7 @@ public class XtbXlsConverter : Converter
                 var parts2 = parts[0].Split(" ");
                 var beforeSlash = parts2[2].Split("/")[0];
                 item.Quantity = int.Parse(beforeSlash);
-                item.Price = decimal.Parse(parts[1]) * item.Quantity;
+                item.Price = decimal.Parse(parts[1], CultureInfo.InvariantCulture) * item.Quantity;
                 continue;
             }
             if (xtbRow.Type == "deposit")
