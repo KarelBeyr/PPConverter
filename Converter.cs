@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Globalization;
+using System.Text;
 
 namespace Converter;
 
@@ -32,10 +33,12 @@ public abstract class Converter
     public void Export(List<Item> items)
     {
         var sb = new StringBuilder();
-        sb.AppendLine("Date,Time,Ticker symbol,Transaction currency,Value,Shares,Type,Fees,Securities Account,Cash Account,Taxes,   Currency Gross Amount, Gross Amount, Exchange Rate");
+        var s = ';';
+        sb.AppendLine($"Date{s}Time{s}Ticker symbol{s}Transaction currency{s}Value{s}Shares{s}Type{s}Fees{s}Securities Account{s}Cash Account{s}Taxes{s}   Currency Gross Amount{s} Gross Amount{s} Exchange Rate");
         foreach (var item in items)
         {
-            sb.AppendLine($"{item.Date.ToString("MM/dd/yyyy")},{item.Date.ToString("HH:mm")},{item.Ticker},{item.Currency},{item.Price},{item.Quantity},{item.Action},{item.Fee},{item.ServiceAccount},{item.DepositAccount},{item.Tax},{item.CurrencyGrossAmount ?? item.Currency},{item.GrossAmount ?? item.Price},{item.ExchangeRate ?? 1}");
+            var l = $"{item.Date.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)}{s}{item.Date.ToString("HH:mm")}{s}{item.Ticker}{s}{item.Currency}{s}{item.Price.ToString().Replace('.', ',')}{s}{item.Quantity}{s}{item.Action}{s},{item.Fee}{s}{item.ServiceAccount}{s}{item.DepositAccount}{s}{item.Tax}{s}{item.CurrencyGrossAmount ?? item.Currency}{s}{(item.GrossAmount ?? item.Price).ToString().Replace('.', ',')}{s}{item.ExchangeRate ?? 1}";
+            sb.AppendLine(l);
         }
         File.WriteAllText(@$"c:\temp\portfolio\{Type}_out.csv", sb.ToString());
     }
