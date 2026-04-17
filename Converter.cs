@@ -34,10 +34,10 @@ public abstract class Converter
     {
         var sb = new StringBuilder();
         var s = ';';
-        sb.AppendLine($"Date{s}Time{s}Ticker symbol{s}Transaction currency{s}Value{s}Shares{s}Type{s}Fees{s}Securities Account{s}Cash Account{s}Taxes{s}   Currency Gross Amount{s} Gross Amount{s} Exchange Rate");
+        sb.AppendLine($"Date{s}Time{s}Ticker Symbol{s}Security Name{s}Transaction Currency{s}Value{s}Shares{s}Type{s}Fees{s}Securities Account{s}Cash Account{s}Taxes{s}Currency Gross Amount{s}Gross Amount{s}Exchange Rate");
         foreach (var item in items)
         {
-            var l = $"{item.Date.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)}{s}{item.Date.ToString("HH:mm")}{s}{item.Ticker}{s}{item.Currency}{s}{item.Price.ToString().Replace('.', ',')}{s}{item.Quantity}{s}{item.Action}{s},{item.Fee}{s}{item.ServiceAccount}{s}{item.DepositAccount}{s}{item.Tax}{s}{item.CurrencyGrossAmount ?? item.Currency}{s}{(item.GrossAmount ?? item.Price).ToString().Replace('.', ',')}{s}{item.ExchangeRate ?? 1}";
+            var l = $"{item.Date.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)}{s}{item.Date.ToString("HH:mm")}{s}{item.Ticker}{s}{item.Ticker}{s}{item.Currency}{s}{item.Price.ToString().Replace('.', ',')}{s}{item.Quantity}{s}{item.Action}{s}{item.Fee}{s}{item.ServiceAccount}{s}{item.DepositAccount}{s}{item.Tax}{s}{item.CurrencyGrossAmount ?? item.Currency}{s}{(item.GrossAmount ?? item.Price).ToString().Replace('.', ',')}{s}{item.ExchangeRate ?? 1}";
             sb.AppendLine(l);
         }
         File.WriteAllText(@$"c:\temp\portfolio\{Type}_out.csv", sb.ToString());

@@ -16,8 +16,8 @@ public static class Program
 
         var converter = new XtbXlsConverter();
         var items = converter.Process(
-            @"c:\temp\portfolio\account_2730583_en_xlsx_2024-12-31_2026-01-05.xlsx",
-            @"c:\temp\portfolio\account_2738250_en_xlsx_2024-12-31_2026-01-05.xlsx"
+            @"c:\temp\portfolio\EUR_2738250_2021-12-31_2026-04-17.xlsx",
+            @"c:\temp\portfolio\USD_2730583_2021-12-31_2026-04-17.xlsx"
             );
 
         converter.Export(items);
