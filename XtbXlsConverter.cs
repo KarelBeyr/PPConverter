@@ -125,7 +125,7 @@ public class XtbXlsConverter : Converter
 
     private static readonly Dictionary<string, string> TickerMap = new()
     {
-        ["ASML.NL"] = "ASML.DE",
+        ["ASML.NL"] = "ASME.DE",
         ["GOOGL"] = "GOOG",
     };
 

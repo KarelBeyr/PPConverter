@@ -6,8 +6,13 @@ public static class Program
     {
         //var converter = new PatriaExcelConverter();
         //var items = converter.Process(
-        //    @"c:\temp\portfolio\export-cash-flow-2026-01-06.xlsx",
-        //    @"c:\temp\portfolio\export-obchodni-pokyny-2026-01-06.xlsx"
+        //    @"c:\temp\portfolio\patria-cash-flow-all.xlsx",
+        //    @"c:\temp\portfolio\patria-obchodni-pokyny-2020.xlsx",
+        //    @"c:\temp\portfolio\patria-obchodni-pokyny-2021.xlsx",
+        //    @"c:\temp\portfolio\patria-obchodni-pokyny-2022.xlsx",
+        //    @"c:\temp\portfolio\patria-obchodni-pokyny-2023.xlsx",
+        //    @"c:\temp\portfolio\patria-obchodni-pokyny-2024.xlsx",
+        //    @"c:\temp\portfolio\patria-obchodni-pokyny-2025.xlsx"
         //);
 
 
