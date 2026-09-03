@@ -238,5 +238,5 @@ public class PatriaExcelConverter : Converter
         {"Twn Semicont Man Depository Receipt", "TSM"}, {"Taiwan Semiconductor Manufacturing Co", "TSM"},  { "Taiwan Semiconductor Manufacturing Co Ltd - Depositary Receipt", "TSM" }, {"Micron Tech", "MU"}, {"Intel", "INTC"}, {"VANGUARD S&P 500 ETF", "VOO"}, {"ALPHABET INC -C-", "GOOG"},{"ETFS PHYSICAL GOLD", "PHAU.L"},
         {"KOMERCNI BANKA", "KOMB.PR"}, {"CEZ", "CEZ.PR"}, {"MONETA MONEY BANK", "MONET.PR"}, {"ERSTE GROUP BANK", "ERBAG.PR"}, {"PHILIP MORRIS CR", "TABAK.PR"}, 
         {"PRIMOCO UAV SE", "PRIUA.PR"}, { "Qualcomm Inc", "QCOM"}, { "Taiwan Semiconductor Manufacturing Co Ltd – Depositary Receipt", "TSM"}, { "Alphabet-C", "GOOG"}, 
-        { "ETFS BRENT 1MTH OIL SECURIT", "OIL BRENT"}, { "STOCK", "STOCK"}, { "GEVORKYAN", "GEVORKYAN"} };
+        { "ETFS BRENT 1MTH OIL SECURIT", "OIL BRENT"}, { "STOCK", "STOCK"}, { "GEVORKYAN", "GEVORKYAN"}, { "CSG", "CSG"} };
 }

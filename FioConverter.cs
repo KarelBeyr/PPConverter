@@ -184,7 +184,7 @@ public class FioConverter : Converter
     }
 
 
-    static Dictionary<string, string> FioCodes = new Dictionary<string, string> { { "BAAKOMB", "KOMB.PR" }, { "BAAERBAG", "ERBAG.PR" }, { "BAAGECBA", "MONET.PR" } };
+    static Dictionary<string, string> FioCodes = new Dictionary<string, string> { { "BAAKOMB", "KOMB.PR" }, { "BAAERBAG", "ERBAG.PR" }, { "BAAGECBA", "MONET.PR" }, { "BAACSG", "CSG" } };
 
     public static string ConvertCodeFio(string chunk)
     {
